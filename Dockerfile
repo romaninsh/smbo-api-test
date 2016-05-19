@@ -2,7 +2,7 @@ FROM ubuntu:latest
 MAINTAINER Romans <me@nearly.guru>
 
 
-RUN echo cache clean 2
+RUN echo cache clean 21
 RUN apt-get update
 RUN apt-get -y upgrade
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install \
