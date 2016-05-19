@@ -4,7 +4,6 @@ MAINTAINER Romans <me@nearly.guru>
 
 RUN echo cache clean 22
 RUN apt-get update
-RUN apt-get -y upgrade
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install \
 
         apache2 \
