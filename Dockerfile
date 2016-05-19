@@ -1,4 +1,4 @@
-debian:jessie
+FROM debian:jessie
 MAINTAINER Romans <me@nearly.guru>
 
 
