@@ -1,4 +1,4 @@
-FROM ubuntu:wily
+FROM ubuntu:latest
 MAINTAINER Romans <me@nearly.guru>
 
 
