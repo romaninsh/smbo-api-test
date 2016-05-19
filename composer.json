@@ -7,5 +7,12 @@
     "psr-0":{
       "":[ ]
     }
+  },
+  "extra": {
+    "heroku": {
+      "document-root": "admin/public",
+      "index-document": "index.php",
+      "php-config": [ "display_errors=on" ]
+    }
   }
 }
