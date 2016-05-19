@@ -36,7 +36,7 @@ The URL is constructed by starting with https://sortmybooksonline.com/api/json/ 
 
 If you use PHP, this could be a handy class for you:
 
-https://github.com/romaninsh/smbo-api-test/blob/master/lib/Frontend.php#L107
+https://github.com/romaninsh/smbo-api-test/blob/master/lib/Controller/SMBO.php
 
 
 ## Calling JSON APIs
@@ -89,5 +89,25 @@ curl_close($ch);echo "result:<pre>";print_r($result=json_decode($result,true)
  
 For convenience I'll use the wrapper around CURL this time:
 
-https://github.com/romaninsh/smbo-api-test/blob/master/lib/Frontend.php#L107
+https://github.com/romaninsh/smbo-api-test/blob/master/lib/Controller/SMBO.php
+
+```
+$smbo = new Controller_SMBO();
+// ^^ modify to properly include hash and system_id
+
+$invoice_id = $smbo->call('sale','add',[
+    'ref_no'=>'abc12',
+    'contractor_to'=>$contractor_id,
+    'due_date'=>'2019-03-20'
+]);
+$spec1 = $smbo->call('salespec','add',[
+    'dochead_id'=>$invoice_id,
+    'article_id'=>$product_id,
+    'nominal_id'=>$nominal_id,
+    'total_net'=>200
+]);
+```
+
+
+
 
