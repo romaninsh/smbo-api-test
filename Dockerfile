@@ -30,8 +30,8 @@ RUN mkdir -p /app && rm -fr /var/www/html && ln -s /app /var/www/html
 ADD . /app
 
 # Configure and start apache
-ADD files/run.sh /run.sh
-ADD files/vhost.conf /etc/apache2/sites-enabled/000-default.conf
+ADD run.sh /run.sh
+ADD vhost.conf /etc/apache2/sites-enabled/000-default.conf
 
 ADD https://getcomposer.org/installer /app/installer
 RUN cd /app; php installer; php composer.phar install --no-dev
