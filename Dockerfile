@@ -13,7 +13,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install \
         git \
         php5-curl \
         nullmailer bsd-mailx \
-        rm -rf /var/lib/apt/lists/*
+        && rm -rf /var/lib/apt/lists/*
 
 RUN sed -i "s/variables_order.*/variables_order = \"EGPCS\"/g" /etc/php5/apache2/php.ini
 RUN sed -i "s/variables_order.*/variables_order = \"EGPCS\"/g" /etc/php5/cli/php.ini
