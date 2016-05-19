@@ -1,4 +1,4 @@
-FROM debian
+FROM ubuntu
 MAINTAINER Romans <me@nearly.guru>
 
 
