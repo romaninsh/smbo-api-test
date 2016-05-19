@@ -49,23 +49,52 @@ Each JSON call is determined by "type" and "operation". For example "type" may b
 You must be aware that while Hard references can never be changed (only deleted), soft references can be changed by user.
 ## Standard Operations
 Some operations may exist for different types, possibly with slight differences. For example, product/list is very similar to service/list. Below is the list of operations which are available for almost any type (hash means associative array):
-(table)
-## System selection
+| Action   | Return Type     | Description                                                                                                                 |
+|----------|-----------------|-----------------------------------------------------------------------------------------------------------------------------|
+| describe | array of hashes | Describes object type returning typical list of fields, their types and captions.                                           |
+| list     | array of hashes | Each hash describes one entry in the system. Field keys match fields as returned by "describe". Some fields may be omitted. |
+| read     | hash            | Returns all record data for object specified by id or key.                                                                  |
+| update   | hash            | Updates record with new values. Returns all record data after it have been updated.                                         |
+| delete   | boolean         | Deletes specified record. Returns true or false. Attempt to delete nonexistant record will produce error                    |
+| add      | hash            | Creates new entry. Returns all record data after it have been added.                                                        |
+| readall  | array of hashes | Returns all record data for object specified by filter (ref_no, doc_date, is_cn). Enable only in sale and purchase types.   |## System selection
 API can operate with multiple company data. The company is identified through field "system_id" which often is present. All the requests require "system_id" to be passed along.## Error Handling
 If request cannot be processed, exception is raised. In this case, request will not return valid JSON data but will rather return an error message. Sample error message would look like this:
 `Exception_JsonApi_Auth: Authentication hash is invalid.`A first token can be used to identify and classify the error, the rest is human-readable error message. Below are classifications of errors starting with `Exception_JsonApi_`
-(table)
-Notes:
+| Process    | Root Cause                                                                                                                                                             | Fix                                   |
+|------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------|
+| Auth       | Authentication mechanism couldn't match your hash against any existing ones. Hash might have been changed or API might have been turned off.                           | Fix hash                              |
+| Usage      | Use of arguments is incorrect. Make sure arguments are type correctly.                                                                                                 | Check your code                       |
+| Validation | Argument values did not pass validation. Make sure that you use proper format for all the types.                                                                       | Check your code                       |
+| Logic      | Problem with Sort My Books logic. You might be trying to edit reconciled payment or delete service which is in use. It's safe to report error description to the user. | Report to user                        |
+| Permission | Insufficient permissions for operation.                                                                                                                                | Check Permissions in Company Settings |
+| Fault      | Problem in SortMyBooks. Something happened what shouldn't have happened.                                                                                               | Report to our support                 |Notes:
 1. Ensure that your company is using a valid credit card. If your credit card expires, APIwill stop working too.
 2. API wouldn't also work until the sign-up wizard is completed properly.
 ## Definition of entities
 When you call "describe" command, it returns list of fields and additional information as detailed in the table below:
-(table)
-All entities will always have "id" column. ID will never change for particular record and it is numeric.
+| Key        | Type                                                                                                          | Description                                                                                             |
+|------------|---------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| name       | string                                                                                                        | System-name of the field. Defined in low-case English letters with underscores.                         |
+| type       | one of "int", "sting", "date", "datetime", "money", "real", "numeric", "text", "boolean", "reference", "list" | Defines type of the field. Additional types may be introduced, so if field has unknown type, ignore it. |
+| caption    | string                                                                                                        | Human-readable label for the field.                                                                     |
+| editable   | boolean                                                                                                       | Can this field be changed through API?                                                                  |
+All entities will always have "id" column. ID will never change for particular record and it is numeric.
 ## Definition of types
 Type as described in previous table can have different values. This is further explained in the next table:
-(table)
-## Understanding entity types
+| Type         | Example in JSON                               | Notes                                                                                         |
+|--------------|-----------------------------------------------|-----------------------------------------------------------------------------------------------|
+| int, numeric | 42                                            | Can be negative                                                                               |
+| string       | "Hello World"                                 | Maximum length is 250                                                                         |
+| date         | "2010-06-20"                                  | yyyy-mm-dd GMT                                                                                |
+| datetime     | "2010-02-20 21:42:53"                         | yyyy-mm-dd hh-mm-ss GMT                                                                       |
+| money        | 29932.29                                      | Can be negative                                                                               |
+| real         | 23.2889                                       | rational number with finite decimal representation                                            |
+| text         | "Hello World Hello World Hello World Hello.." | String with maximum length of 64,000 characters.                                              |
+| boolean      | true                                          | Either true or false                                                                          |
+| reference    | 2833                                          | points to ID of different entity                                                              |
+| list         | "cash"                                        | Value, one of pre-defined list such as "cash" and "invoice" for company VAT calculation basis |
+| json         | {"is_cn":"Y"}                                 | Valid json string                                                                             |## Understanding entity types
 SortMyBooks consists of many types of entities such as invoices, purchases, payments, products, vat periods, reconciliations etc. Those types are organised hierarchically. For example there is internal type "document" which is used as a base for invoices, payments, transfers etc. Invoice type is used and extended by "sales" and "purchase" invoices.
 ## Support
 Email us your questions and suggestions on support@sortmybooks.com or better still log your ticket using https://sortmybooks.zendesk.com/forums and we will get back to you within 24hours with a response.## Future expansion of API
