@@ -9,7 +9,6 @@ config-auto.php
 composer.phar
 /vendor/*
 /agiletoolkit-sandbox.phar
-run.sh
 run.bat
 VERSION
 /index.php
