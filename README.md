@@ -28,7 +28,7 @@ Get the API Key - Login into SortMyBooks account under Home/Settings you will se
 
 Once you have enabled API, you can start exploring it by following this link:
 
-https://sortmybooksonline.com/api/json/list. 
+https://sortmybooksonline.com/api/json/index 
 
 Once your API key is verified, it will list all the endpoints available to you. If you do not specify POST data then API will conveniently present you with a "Basic Form" to enter required values.
 
