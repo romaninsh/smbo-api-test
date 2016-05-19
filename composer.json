@@ -10,7 +10,7 @@
   },
   "extra": {
     "heroku": {
-      "document-root": "admin/public",
+      "document-root": "/",
       "index-document": "index.php",
       "php-config": [ "display_errors=on" ]
     }
