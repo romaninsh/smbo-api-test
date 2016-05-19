@@ -1,0 +1,11 @@
+{
+  "type":"project",
+  "require":{
+    "atk4\/atk4":"4.3.*"
+  },
+  "autoload":{
+    "psr-0":{
+      "":[ ]
+    }
+  }
+}
